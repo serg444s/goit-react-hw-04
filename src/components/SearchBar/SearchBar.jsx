@@ -1,13 +1,29 @@
 import css from "./SearchBar.module.css";
 import { IoSearch } from "react-icons/io5";
 
-const SearchBar = () => {
+const SearchBar = ({ setState }) => {
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    const form = evt.target;
+    if (form.elements.query.value.trim() === "") {
+      alert("Please enter search term!");
+      return;
+    }
+    setState({
+      query: form.elements.query.value,
+      images: [],
+      page: 1,
+    });
+    form.reset();
+  };
+
   return (
     <header className={css.header}>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Search images and photos"
+          name="query"
           className={css.input}
         />
         <button type="submit" className={css.btn}>
