@@ -1,0 +1,27 @@
+.header {
+  margin-top: 0;
+  width: 1400px;
+  height: 100px;
+  background: radial-gradient(
+    183.6% 183.01% at 59.76% -23.42%,
+    #4f2ee8 18.03%,
+    #fff 100%
+  );
+}
+
+.input {
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  background-color: #fff;
+}
+
+.btn {
+  padding: 11px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  border-radius: 0;
+  background-color: #fff;
+}
