@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import SearchBar from "../SearchBar/SearchBar";
 import "./App.css";
-import { fetchImagesWithTopic } from "../SearchBar/searchBar-api";
+import { fetchImages } from "../SearchBar/searchBar-api";
 import { Hourglass } from "react-loader-spinner";
 
 function App() {
@@ -16,33 +16,32 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const handleSearch = async (topic) => {
-      async function fetchImages() {
-        try {
-          setError(false);
-          setLoading(true);
-          const data = await fetchImagesWithTopic(topic);
-        } catch (error) {
-          setError(true);
-        } finally {
-          setLoading(false);
-        }
+    async function fetch() {
+      try {
+        setError(false);
+        setLoading(true);
+        const data = await fetchImages(state);
+
+        setState(() => {
+          return {
+            ...state,
+            images: [...data],
+          };
+        });
+      } catch (error) {
+        setError(true);
+      } finally {
+        setLoading(false);
       }
-      fetchImages();
-    };
+    }
+    fetch();
   }, [state]);
 
   return (
     <div>
       <SearchBar setState={setState} />
-      {error && (
-        <p style={{ fontSize: 20 }}>
-          Whoops, something went wrong! Please try reloading this page!
-        </p>
-      )}
-      {state.images.length > 0 && (
-        <ImageGallery data={data} setInputValue={setState} />
-      )}
+      {error && <p>Whoops, something went wrong!</p>}
+      {state.images.length > 0 && <ImageGallery data={state} />}
 
       {loading && (
         <Hourglass

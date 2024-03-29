@@ -1,18 +1,20 @@
 import ImageCard from "../ImageCard/ImageCard";
 
-const ImageGallery = ({ images }) => {
- 
-
+const ImageGallery = (data) => {
+  const images = data.data.images;
+  console.log(images);
   return (
-    <ul>
-      {images.map((image) => {
-        return (
-          <li key={image.id}>
-            <ImageCard image={image} />
-          </li>
-        );
-      })}
-    </ul>
+    <div>
+      <ul>
+        {images.map((image) => {
+          return (
+            <li key={image.id}>
+              <ImageCard image={image} />
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 };
 

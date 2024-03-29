@@ -5,12 +5,13 @@ const SearchBar = ({ setState }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     const form = evt.target;
-    if (form.elements.query.value.trim() === "") {
+    console.log(evt.target.elements.query.value);
+    if (evt.target.elements.query.value.trim() === "") {
       alert("Please enter search term!");
       return;
     }
     setState({
-      query: form.elements.query.value,
+      query: evt.target.elements.query.value,
       images: [],
       page: 1,
     });
