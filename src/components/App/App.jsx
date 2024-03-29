@@ -22,7 +22,6 @@ function App() {
           setError(false);
           setLoading(true);
           const data = await fetchImagesWithTopic(topic);
-          setState({ ...state, images: { data } });
         } catch (error) {
           setError(true);
         } finally {
@@ -42,7 +41,7 @@ function App() {
         </p>
       )}
       {state.images.length > 0 && (
-        <ImageGallery images={state.images} setInputValue={setState} />
+        <ImageGallery data={data} setInputValue={setState} />
       )}
 
       {loading && (
