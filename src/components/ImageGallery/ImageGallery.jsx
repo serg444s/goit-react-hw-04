@@ -1,8 +1,6 @@
 import ImageCard from "../ImageCard/ImageCard";
 
-const ImageGallery = (data) => {
-  const images = data.data.images;
-  console.log(images);
+const ImageGallery = ({ images }) => {
   return (
     <div>
       <ul>

@@ -1,54 +1,37 @@
 import { useState, useEffect } from "react";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import SearchBar from "../SearchBar/SearchBar";
-import "./App.css";
 import { fetchImages } from "../../photo-api";
 import { Hourglass } from "react-loader-spinner";
 
-function App() {
+export function App() {
   const [query, setQuery] = useState("");
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-
-  console.log(query, page, "App");
-
-  // useEffect(() => {
-  //   async function fetch() {
-  //     try {
-  //       setError(false);
-  //       setLoading(true);
-  //       const data = await fetchImages(query);
-
-  //       setState();
-  //     } catch (error) {
-  //       setError(true);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-  //   fetch();
-  // }, []);
 
   useEffect(() => {
-    if (!query) return;
-    const fetchData = async () => {
+    async function fetch() {
       try {
         setError(false);
         setLoading(true);
-        const data = await fetchImages(page, query);
-        setImages((prevImages) => [...prevImages, ...data.results]);
-        setIsVisible(page < data.total_pages);
+        const data = await fetchImages(state);
+
+        setState(() => {
+          return {
+            ...state,
+            images: [...data],
+          };
+        });
       } catch (error) {
-        setError(error);
+        setError(true);
       } finally {
         setLoading(false);
       }
-    };
-    fetchData();
-  }, [page, query]);
+    }
+    fetch();
+  }, []);
 
   return (
     <div>
@@ -70,5 +53,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
