@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import SearchBar from "../SearchBar/SearchBar";
-import "./App.css";
 import { Hourglass } from "react-loader-spinner";
 import { fetchImages } from "../../photo-api";
+import "./App.css";
 
 function App() {
   const [query, setQuery] = useState("");

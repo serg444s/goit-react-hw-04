@@ -11,30 +11,29 @@ const SearchBar = ({ onSearch }) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    const form = evt.target;
     if (evt.target.elements.query.value.trim() === "") {
       alert("Please enter search term!");
       return;
     }
     onSearch(query);
     console.log(query, "handleSubmit");
-    form.reset();
+    setQuery("");
   };
 
   return (
     <header className={css.header}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={css.form}>
         <input
           onChange={handleChange}
           type="text"
-          placeholder="Search images and photos"
+          placeholder="Search images and photos..."
           name="query"
           required
           autoFocus
           value={query}
           className={css.input}
         />
-        <button type="submit" className={css.btn}>
+        <button type="submit" className={css.btn} title="To search">
           <IoSearch />
         </button>
       </form>

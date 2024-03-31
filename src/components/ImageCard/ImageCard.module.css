@@ -1,9 +1,16 @@
 .thumb {
-  border: 2px solid beige;
+  border: 4px solid beige;
+  padding: 0;
 }
 
 .img {
   display: block;
-  max-width: 100%;
+  width: 100%;
+  height: 200px;
   object-fit: cover;
+  cursor: pointer;
+}
+
+.text {
+  margin: 0;
 }

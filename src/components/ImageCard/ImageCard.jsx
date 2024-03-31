@@ -1,18 +1,19 @@
 import css from "./ImageCard.module.css";
+import { AiFillLike } from "react-icons/ai";
 
 const ImageCard = ({ image }) => {
   console.log(image);
   return (
-    <div
-      className={css.thumb}
-      style={{ backgroundColor: image.color, borderColor: image.color }}
-    >
+    <div className={css.thumb} style={{ borderColor: image.color }}>
       <img
         src={image.urls.small}
         alt={image.alt_description}
         className={css.img}
       />
-      <p></p>
+      <p className={css.text}>
+        <AiFillLike />
+        {image.likes}
+      </p>
     </div>
   );
 };
