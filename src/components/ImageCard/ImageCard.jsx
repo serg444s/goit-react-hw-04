@@ -2,7 +2,6 @@ import css from "./ImageCard.module.css";
 import { AiFillLike } from "react-icons/ai";
 
 const ImageCard = ({ image }) => {
-  console.log(image);
   return (
     <div className={css.thumb} style={{ borderColor: image.color }}>
       <img

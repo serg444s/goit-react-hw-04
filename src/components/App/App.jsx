@@ -4,6 +4,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import { Hourglass } from "react-loader-spinner";
 import { fetchImages } from "../../photo-api";
 import "./App.css";
+import { LoadButton } from "../LoadButton/LoadButton";
 
 function App() {
   const [query, setQuery] = useState("");
@@ -12,25 +13,6 @@ function App() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-
-  console.log(query, page, "App");
-
-  // useEffect(() => {
-  //   async function fetch() {
-  //     try {
-  //       setError(false);
-  //       setLoading(true);
-  //       const data = await fetchImages(query);
-
-  //       setState();
-  //     } catch (error) {
-  //       setError(true);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-  //   fetch();
-  // }, []);
 
   useEffect(() => {
     if (!query) return;
@@ -59,6 +41,10 @@ function App() {
     setIsVisible(false);
   };
 
+  const onLoadMore = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
+
   return (
     <div>
       <SearchBar onSearch={onHandleSubmit} />
@@ -76,6 +62,7 @@ function App() {
           colors={["#306cce", "#72a1ed"]}
         />
       )}
+      <LoadButton onClick={onLoadMore} />
     </div>
   );
 }
