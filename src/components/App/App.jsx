@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import SearchBar from "../SearchBar/SearchBar";
 import "./App.css";
-import { fetchImages } from "../../photo-api";
 import { Hourglass } from "react-loader-spinner";
+import { fetchImages } from "../../photo-api";
 
 function App() {
   const [query, setQuery] = useState("");
@@ -38,6 +38,7 @@ function App() {
       try {
         setError(false);
         setLoading(true);
+        console.log(page, query, "app await");
         const data = await fetchImages(page, query);
         setImages((prevImages) => [...prevImages, ...data.results]);
         setIsVisible(page < data.total_pages);
@@ -50,9 +51,17 @@ function App() {
     fetchData();
   }, [page, query]);
 
+  const onHandleSubmit = (value) => {
+    setQuery(value);
+    setImages([]);
+    setPage(1);
+    setError(false);
+    setIsVisible(false);
+  };
+
   return (
     <div>
-      <SearchBar onSearch={setQuery} />
+      <SearchBar onSearch={onHandleSubmit} />
       {error && <p>Whoops, something went wrong!</p>}
       {images.length > 0 && <ImageGallery images={images} />}
 
