@@ -3,6 +3,7 @@
   border-radius: 16px;
   background-color: transparent;
   transition: all 0.25s ease;
+  outline: none;
 }
 
 .btn:hover {

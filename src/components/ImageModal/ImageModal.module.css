@@ -1,8 +1,15 @@
 .img {
-  max-width: 800px;
-  max-height: 600px;
+  display: block;
+  max-width: 750px;
+  max-height: 550px;
+  margin: 0 auto;
 }
 
 .text {
-  max-width: 800px;
+  max-width: 600px;
+  text-align: center;
+}
+
+.container {
+  text-align: center;
 }

@@ -14,6 +14,7 @@ const SearchBar = ({ onSearch }) => {
     evt.preventDefault();
     if (evt.target.elements.query.value.trim() === "") {
       toast.error("Please enter search term!");
+      setQuery("");
       return;
     }
     onSearch(query);
