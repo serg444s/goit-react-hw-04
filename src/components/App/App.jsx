@@ -6,6 +6,7 @@ import { fetchImages } from "../../photo-api";
 import "./App.css";
 import { LoadButton } from "../LoadButton/LoadButton";
 import ImageModal from "../ImageModal/ImageModal";
+import toast, { Toaster } from "react-hot-toast";
 
 function App() {
   const [query, setQuery] = useState("");
@@ -18,6 +19,7 @@ function App() {
   const [url, setUrl] = useState("");
   const [alt, setAlt] = useState("");
   const [description, setDescription] = useState("");
+  const [isEmpty, setIsEmpty] = useState(true);
 
   useEffect(() => {
     if (!query) return;
@@ -30,6 +32,7 @@ function App() {
         setIsVisible(page < data.total_pages);
       } catch (error) {
         setError(error);
+        toast.error("Whoops, something went wrong!");
       } finally {
         setLoading(false);
       }
@@ -43,6 +46,7 @@ function App() {
     setPage(1);
     setError(false);
     setIsVisible(false);
+    setIsEmpty(false);
   };
 
   const onLoadMore = () => {
@@ -65,8 +69,10 @@ function App() {
 
   return (
     <>
+      <Toaster position="top-right" reverseOrder={false} />
       <SearchBar onSearch={onHandleSubmit} />
       {error && <p>Whoops, something went wrong!</p>}
+      {!images.length && isEmpty && <p>Let`s begin search 🔎</p>}
       {images.length > 0 && (
         <ImageGallery images={images} openModal={openModal} />
       )}
@@ -84,6 +90,7 @@ function App() {
           colors={["#306cce", "#72a1ed"]}
         />
       )}
+      {!images.length && !isEmpty && <p>Sorry. There are no images...</p>}
       <ImageModal
         url={url}
         alt={alt}

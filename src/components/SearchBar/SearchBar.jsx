@@ -1,7 +1,7 @@
 import css from "./SearchBar.module.css";
 import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const SearchBar = ({ onSearch }) => {
   const [query, setQuery] = useState("");
@@ -13,7 +13,7 @@ const SearchBar = ({ onSearch }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (evt.target.elements.query.value.trim() === "") {
-      alert("Please enter search term!");
+      toast.error("Please enter search term!");
       return;
     }
     onSearch(query);
