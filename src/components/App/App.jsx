@@ -5,6 +5,7 @@ import { Hourglass } from "react-loader-spinner";
 import { fetchImages } from "../../photo-api";
 import "./App.css";
 import { LoadButton } from "../LoadButton/LoadButton";
+import ImageModal from "../ImageModal/ImageModal";
 
 function App() {
   const [query, setQuery] = useState("");
@@ -13,6 +14,10 @@ function App() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [url, setUrl] = useState("");
+  const [alt, setAlt] = useState("");
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     if (!query) return;
@@ -20,7 +25,6 @@ function App() {
       try {
         setError(false);
         setLoading(true);
-        console.log(page, query, "app await");
         const data = await fetchImages(page, query);
         setImages((prevImages) => [...prevImages, ...data.results]);
         setIsVisible(page < data.total_pages);
@@ -45,12 +49,30 @@ function App() {
     setPage((prevPage) => prevPage + 1);
   };
 
+  const openModal = (obj) => {
+    setShowModal(true);
+    setAlt(obj.alt_description);
+    setUrl(obj.urls.regular);
+    setDescription(obj.description);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setAlt("");
+    setUrl("");
+    setDescription("");
+  };
+
   return (
     <>
       <SearchBar onSearch={onHandleSubmit} />
       {error && <p>Whoops, something went wrong!</p>}
-      {images.length > 0 && <ImageGallery images={images} />}
-      {isVisible && <LoadButton onClick={onLoadMore} loading={loading} />}
+      {images.length > 0 && (
+        <ImageGallery images={images} openModal={openModal} />
+      )}
+      {isVisible && !loading && (
+        <LoadButton onClick={onLoadMore} loading={loading} />
+      )}
       {loading && (
         <Hourglass
           visible={true}
@@ -62,6 +84,13 @@ function App() {
           colors={["#306cce", "#72a1ed"]}
         />
       )}
+      <ImageModal
+        url={url}
+        alt={alt}
+        description={description}
+        modalIsOpen={showModal}
+        closeModal={closeModal}
+      />
     </>
   );
 }
