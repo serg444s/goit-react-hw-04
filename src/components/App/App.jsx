@@ -46,11 +46,11 @@ function App() {
   };
 
   return (
-    <div>
+    <>
       <SearchBar onSearch={onHandleSubmit} />
       {error && <p>Whoops, something went wrong!</p>}
       {images.length > 0 && <ImageGallery images={images} />}
-
+      {isVisible && <LoadButton onClick={onLoadMore} loading={loading} />}
       {loading && (
         <Hourglass
           visible={true}
@@ -62,8 +62,7 @@ function App() {
           colors={["#306cce", "#72a1ed"]}
         />
       )}
-      <LoadButton onClick={onLoadMore} />
-    </div>
+    </>
   );
 }
 

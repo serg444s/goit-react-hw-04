@@ -9,6 +9,7 @@
   justify-content: center;
   gap: 16px;
   margin-bottom: 16px;
+  margin-top: 0;
 }
 
 .input {
@@ -24,6 +25,7 @@
 
 .input:focus {
   border-color: blue;
+  box-shadow: 0 4px 6px rgba(0, 0, 255, 0.5);
 }
 
 .btn {
@@ -34,4 +36,10 @@
   outline: none;
   border-radius: 16px;
   background-color: transparent;
+}
+
+.btn:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 255, 0.5);
+  border-color: blue;
+  color: blue;
 }
