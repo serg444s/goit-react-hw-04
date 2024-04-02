@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import SearchBar from "../SearchBar/SearchBar";
-import { Hourglass } from "react-loader-spinner";
 import { fetchImages } from "../../photo-api";
 import "./App.css";
-import { LoadButton } from "../LoadButton/LoadButton";
+import { LoadMoreBtn } from "../LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "../ImageModal/ImageModal";
 import toast, { Toaster } from "react-hot-toast";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import Loader from "../Loader/Loader";
 
 function App() {
   const [query, setQuery] = useState("");
@@ -71,25 +72,15 @@ function App() {
     <>
       <Toaster position="top-right" reverseOrder={false} />
       <SearchBar onSearch={onHandleSubmit} />
-      {error && <p>Whoops, something went wrong!</p>}
-      {!images.length && isEmpty && <p>Let`s begin search 🔎</p>}
+      {error && <ErrorMessage />}
+      {!images.length && isEmpty && <p>Let`s begin search...</p>}
       {images.length > 0 && (
         <ImageGallery images={images} openModal={openModal} />
       )}
       {isVisible && !loading && (
-        <LoadButton onClick={onLoadMore} loading={loading} />
+        <LoadMoreBtn onClick={onLoadMore} loading={loading} />
       )}
-      {loading && (
-        <Hourglass
-          visible={true}
-          height="80"
-          width="80"
-          ariaLabel="hourglass-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-          colors={["#306cce", "#72a1ed"]}
-        />
-      )}
+      {loading && <Loader />}
       {!images.length && !isEmpty && <p>Sorry. There are no images...</p>}
       <ImageModal
         url={url}
